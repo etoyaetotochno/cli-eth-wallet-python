@@ -2,6 +2,9 @@ import os
 import click
 from cli import create_account, view_balance, send_transaction, load_account
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def menu():
     while True:
         choice = main_menu()
@@ -30,6 +33,7 @@ def handle_choice(choice):
     else:
         print("Неправильний номер меню.")
     input("Натисніть Enter для продовження...")
+    clear_screen()
 
 if __name__ == '__main__':
     menu()
