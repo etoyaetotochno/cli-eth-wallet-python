@@ -10,5 +10,7 @@ def main():
 main.add_command(cli.create_account)
 main.add_command(cli.load_account)
 main.add_command(cli.send_transaction)
+main.add_command(cli.view_balance)
+
 if __name__ == '__main__':
     main()

@@ -13,6 +13,10 @@ def load_account(private_key):
     account = Account.from_key(private_key)
     return {"address": account.address, "private_key": account.key.hex()}
 
+def get_balance(address):
+    balance = web3.eth.get_balance(address)
+    return web3.from_wei(balance, "ether")
+
 def send_transaction(sender_private_key, recipient_address, amount):
     sender_address = Account.from_key(sender_private_key)
     nonce = web3.eth.get_transaction_count(sender_address.address)

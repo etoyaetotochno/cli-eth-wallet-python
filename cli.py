@@ -30,5 +30,17 @@ def send_transaction(username, password, to, value):
     tx_hash = eth.send_transaction(user["private_key"], to, value)
     click.echo("Транзакцію відправлено: {}".format(tx_hash))
 
+@click.command()
+@click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
+@click.option("--password", prompt=True, hide_input=True, help="Пароль існуючого облікового запису")
+def view_balance(username, password):
+    user = auth.authenticate(username, password)
+    if not user:
+        click.echo("Неправильне ім'я або пароль")
+        return
+    balance = eth.get_balance(user["address"])
+    click.echo("Поточний баланс {}: {} ETH".format(user["address"], balance))
+
 cli.add_command(create_account)
 cli.add_command(send_transaction)
+cli.add_command(view_balance)
