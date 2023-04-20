@@ -27,6 +27,9 @@ def load_account(username, password, key):
 @click.option("--value", prompt=True, type=float, help="Сума (ефіру) транзакції")
 def send_transaction(username, password, to, value):
     user = auth.authenticate(username, password)
+    if not user:
+        click.echo("Неправильне ім'я або пароль")
+        return
     tx_hash = eth.send_transaction(user["private_key"], to, value)
     click.echo("Транзакцію відправлено: {}".format(tx_hash))
 
