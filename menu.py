@@ -1,4 +1,5 @@
 import os
+import traceback
 import click
 from cli import create_account, view_balance, send_transaction, load_account
 
@@ -35,6 +36,8 @@ def handle_choice(choice):
             print("Неправильний номер меню.")
     except (click.exceptions.Exit, SystemExit):
         pass
+    except Exception:
+        traceback.print_exc()
     finally:
         input("Натисніть Enter для продовження...")
         clear_screen()
