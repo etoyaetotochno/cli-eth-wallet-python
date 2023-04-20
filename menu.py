@@ -16,3 +16,6 @@ def main_menu():
     choice = click.prompt('Обрати', type=int)
     return choice
 
+
+if __name__ == '__main__':
+    menu()
