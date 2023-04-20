@@ -1,6 +1,7 @@
 import click
 import cli
 import db
+import menu
 
 @click.group()
 def main():
