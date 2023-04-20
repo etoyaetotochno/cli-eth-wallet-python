@@ -16,6 +16,20 @@ def main_menu():
     choice = click.prompt('Обрати', type=int)
     return choice
 
+def handle_choice(choice):
+    if choice == 1:
+        create_account()
+    elif choice == 2:
+        view_balance()
+    elif choice == 3:
+        send_transaction()
+    elif choice == 4:
+        load_account()
+    if choice == 0:
+        quit()
+    else:
+        print("Неправильний номер меню.")
+    input("Натисніть Enter для продовження...")
 
 if __name__ == '__main__':
     menu()
