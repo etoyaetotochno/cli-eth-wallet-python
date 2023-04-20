@@ -33,7 +33,7 @@ def handle_choice(choice):
             load_account()
         else:
             print("Неправильний номер меню.")
-    except:
+    except (click.exceptions.Exit, SystemExit):
         pass
     finally:
         input("Натисніть Enter для продовження...")
