@@ -44,6 +44,3 @@ def view_balance(username, password):
     balance = eth.get_balance(user["address"])
     click.echo("Поточний баланс {}: {} ETH".format(user["address"], balance))
 
-cli.add_command(create_account)
-cli.add_command(send_transaction)
-cli.add_command(view_balance)
