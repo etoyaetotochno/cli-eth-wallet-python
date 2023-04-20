@@ -30,4 +30,5 @@ def send_transaction(username, password, to, value):
     tx_hash = eth.send_transaction(user["private_key"], to, value)
     click.echo("Транзакцію відправлено: {}".format(tx_hash))
 
+cli.add_command(create_account)
 cli.add_command(send_transaction)
