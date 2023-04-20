@@ -42,3 +42,12 @@ def user_unique(username):
     conn.close()
     return exists
     
+def address_unique(address):
+    conn = sqlite3.connect(DB_FILENAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE address = ?", (address,))
+    result = c.fetchone()
+    exists = False if result else True
+    conn.commit()
+    conn.close()
+    return exists
