@@ -12,3 +12,11 @@ def create_table():
     conn.commit()
     conn.close()
 
+# Додання нового користувача в БД
+def add_user(username, password, address, private_key):
+    conn = sqlite3.connect(DB_FILENAME)
+    c = conn.cursor()
+    c.execute("INSERT INTO users VALUES (?, ?, ?, ?)", (username, password, address, private_key))
+    conn.commit()
+    conn.close()
+
