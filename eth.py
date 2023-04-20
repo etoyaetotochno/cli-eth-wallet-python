@@ -9,3 +9,7 @@ def create_account():
     account = Account.create()
     return {"address": account.address, "private_key": account.key.hex()}
 
+def load_account(private_key):
+    account = Account.from_key(private_key)
+    return {"address": account.address, "private_key": account.key.hex()}
+
