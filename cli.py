@@ -26,8 +26,8 @@ def create_account(username, password):
 @click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True, help="Пароль для нового облікового запису")
 @click.option("--key", prompt=True, help="Приватний ключ існуючого рахунку в мережі")
 def load_account(username, password, key):
+    account = eth.load_account(key)
     if db.user_unique(username):
-        account = eth.load_account(key)
         db.add_user(username, password, account["address"], account["private_key"])
         click.echo("Рахунок імпортовано до нового облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
     else:
@@ -35,8 +35,9 @@ def load_account(username, password, key):
         if not user:
             click.echo("Неправильне ім'я або пароль")
             return
+        elif db.check_address(username, account["address"]):
+            click.echo("Рахунок {} вже належить користувачу: {}".format(account["address"], username))
         else:
-            account = eth.load_account(key)
             db.add_user(username, password, account["address"], account["private_key"])
             click.echo("Рахунок імпортовано до існуючого облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
 
