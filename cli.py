@@ -55,6 +55,9 @@ def view_balance(username, password):
     if not user:
         click.echo("Неправильне ім'я або пароль")
         return
-    balance = eth.get_balance(user["address"])
-    click.echo("Поточний баланс {}: {} ETH".format(user["address"], balance))
+    addresses = [row[0] for row in db.user_addresses(username)]
+    click.echo("Поточний баланс рахунків")
+    for address in addresses:
+        balance = eth.get_balance(address)
+        click.echo("{} : {} ETH".format(address, balance))
 
