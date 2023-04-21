@@ -21,16 +21,16 @@ def add_user(username, password, address, private_key):
     conn.close()
 
 # Отримання інформації користувача
-def get_user(username):
+def authenticate(username, password):
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE username=?", (username,))
+    c.execute("SELECT username, password FROM users WHERE username=?", (username,))
     user = c.fetchone()
     conn.close()
-    if user:
-        return {'username': user[0], 'password': user[1], 'address': user[2], 'private_key': user[3]}
+    if user and password == user[1]:
+        return True
     else:
-        return None
+        return False
 
 def user_unique(username):
     conn = sqlite3.connect(DB_FILENAME)
