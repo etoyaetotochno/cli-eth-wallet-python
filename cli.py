@@ -36,11 +36,8 @@ def load_account(username, password, key):
             return
         else:
             account = eth.load_account(key)
-            if db.address_unique(account["address"]):
-                db.add_user(username, password, account["address"], account["private_key"])
-                click.echo("Рахунок імпортовано до існуючого облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
-            else:
-                click.echo("Помилка! Рахунок вже існує.")
+            db.add_user(username, password, account["address"], account["private_key"])
+            click.echo("Рахунок імпортовано до існуючого облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
 
 @click.command()
 @click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
