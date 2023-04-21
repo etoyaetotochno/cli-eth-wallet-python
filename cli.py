@@ -30,7 +30,7 @@ def load_account(username, password, key):
         db.add_user(username, password, account["address"], account["private_key"])
         click.echo("Рахунок імпортовано до нового облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
     else:
-        user = auth.authenticate(username, password)
+        user = db.authenticate(username, password)
         if not user:
             click.echo("Неправильне ім'я або пароль")
             return
@@ -46,7 +46,7 @@ def load_account(username, password, key):
 @click.option("--to_address", prompt=True, help="Адреса призначення")
 @click.option("--value", prompt=True, type=float, help="Сума (ефіру) транзакції")
 def send_transaction(username, password, sender_address, to_address, value):
-    user = auth.authenticate(username, password)
+    user = db.authenticate(username, password)
     if not user:
         click.echo("Неправильне ім'я або пароль")
         return
@@ -79,7 +79,7 @@ def send_transaction(username, password, sender_address, to_address, value):
 @click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
 @click.option("--password", prompt=True, hide_input=True, help="Пароль існуючого облікового запису")
 def view_balance(username, password):
-    user = auth.authenticate(username, password)
+    user = db.authenticate(username, password)
     if not user:
         click.echo("Неправильне ім'я або пароль")
         return
