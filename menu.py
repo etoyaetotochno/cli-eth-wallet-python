@@ -1,9 +1,11 @@
 import os
 import traceback
 import click
+import db
 from cli import create_account, view_balance, send_transaction, load_account
 
 def menu():
+    db.create_table()
     while True:
         choice = main_menu()
         handle_choice(choice)
