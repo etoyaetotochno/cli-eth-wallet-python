@@ -59,7 +59,7 @@ def user_addresses(username):
     return result
 
 def get_private_key(address):
-	conn = sqlite3.connect(DB_FILENAME)
+    conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
     c.execute("SELECT private_key FROM users WHERE address = ?", (address,))
     result = c.fetchall()
