@@ -38,7 +38,6 @@ def user_unique(username):
     c.execute("SELECT * FROM users WHERE username = ?", (username,))
     result = c.fetchone()
     exists = False if result else True
-    conn.commit()
     conn.close()
     return exists
     
@@ -48,6 +47,5 @@ def address_unique(address):
     c.execute("SELECT * FROM users WHERE address = ?", (address,))
     result = c.fetchone()
     exists = False if result else True
-    conn.commit()
     conn.close()
     return exists
