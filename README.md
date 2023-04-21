@@ -1,13 +1,14 @@
 # cli-eth-wallet-python
 
-Використання: <br>
+Встановлення: <br>
 ``pip install -r requirements.txt`` - встановлення залежностей <br>
+
+Використання: <br>
+``python menu.py`` - виклик функцій через інтерфейс меню
 
 ``python main.py COMMAND [ARGS]`` - виклик функцій як команд терміналу <br>
   Команди: <br>
-  create-account    - додання нового акаунту, або рахунку до існуючого акаунту <br>
-  load-account      - завантаження існуючого в мережі рахунку до акаунту <br>
-  send-transaction  - відправлення транзакції <br>
-  view-balance      - баланс доступних рахунків в акаунті <br>
-
-``python menu.py`` - виклик функцій через меню командного рядку
+  create-account --username --password - додання нового акаунту, або нового рахунку до існуючого акаунту <br>
+  load-account --username --password --key - завантаження існуючого в мережі рахунку до акаунту <br>
+  send-transaction --username --password --sender_address --to_address --value - відправлення транзакції <br>
+  view-balance --username --password - баланс доступних рахунків в акаунті <br>
