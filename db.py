@@ -46,7 +46,6 @@ def check_address(username, address):
     c = conn.cursor()
     c.execute("SELECT address FROM users WHERE username = ? AND address = ?", (username, address,))
     result = c.fetchone()
-    exists = False if result else True
     conn.close()
     return exists
 
