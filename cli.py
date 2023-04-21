@@ -27,6 +27,7 @@ def create_account(username, password):
 @click.option("--key", prompt=True, help="Приватний ключ існуючого рахунку в мережі")
 def load_account(username, password, key):
     if db.user_unique(username):
+        account = eth.load_account(key)
         db.add_user(username, password, account["address"], account["private_key"])
         click.echo("Рахунок імпортовано до нового облікового запису:\nІм'я користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
     else:
