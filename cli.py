@@ -50,15 +50,25 @@ def send_transaction(username, password, sender_address, to_address, value):
         tx_hash = eth.send_transaction(private_key, to_address, value)
     else:
         addresses = [row[0] for row in db.user_addresses(username)]
-        user_choice = click.prompt(
-            "Введіть вихідний рахунок:",
-            type=click.Choice(addresses),
-            show_choices=True,
-            prompt_suffix="\n"
-        )
-        private_key = db.get_private_key(user_choice)[0][0]
+        click.echo("Оберіть вихідний рахунок:")
+
+        for i, address in enumerate(addresses):
+            click.echo("{}. {}".format(i+1, address))
+
+        while True:
+            try:
+                choice = click.prompt("Введіть номер рахунку", type=int)
+                if choice < 1 or choice > len(addresses):
+                    raise ValueError("Неправильний номер рахунку. Спробуйте ще раз.")
+                else:
+                    selected_address = addresses[choice-1]
+                    break
+            except ValueError as e:
+                click.echo(str(e))
+
+        private_key = db.get_private_key(selected_address)[0][0]
         tx_hash = eth.send_transaction(private_key, to_address, value)
-    click.echo("Транзакцію відправлено: {}".format(tx_hash))
+    click.echo("Транзакцію відправлено: {}\n Рахунок: {}\n Сума: {}".format(tx_hash, selected_address, value))
 
 @click.command()
 @click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
