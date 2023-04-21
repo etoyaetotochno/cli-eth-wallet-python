@@ -44,7 +44,8 @@ def send_transaction(username, password, to, value):
     if not user:
         click.echo("Неправильне ім'я або пароль")
         return
-    tx_hash = eth.send_transaction(user["private_key"], to, value)
+    private_key = db.get_private_key(user["address"])[0][0]
+    tx_hash = eth.send_transaction(private_key, to, value)
     click.echo("Транзакцію відправлено: {}".format(tx_hash))
 
 @click.command()
