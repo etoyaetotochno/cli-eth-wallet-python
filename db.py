@@ -35,7 +35,7 @@ def authenticate(username, password):
 def user_unique(username):
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE username = ?", (username,))
+    c.execute("SELECT username FROM users WHERE username = ?", (username,))
     result = c.fetchone()
     exists = False if result else True
     conn.close()
