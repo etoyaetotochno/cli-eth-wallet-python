@@ -37,7 +37,7 @@ def load_account(username, password, key):
 @click.command()
 @click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
 @click.option("--password", prompt=True, hide_input=True, help="Пароль існуючого облікового запису")
-@click.option("--to", prompt=True, help="Адреса призначення")
+@click.option("--to_address", prompt=True, help="Адреса призначення")
 @click.option("--value", prompt=True, type=float, help="Сума (ефіру) транзакції")
 def send_transaction(username, password, to, value):
     user = auth.authenticate(username, password)
