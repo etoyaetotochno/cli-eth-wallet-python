@@ -1,6 +1,7 @@
 from web3 import Web3
 from eth_account import Account
 import os
+import datetime
 
 # Підключенні до мережі
 web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:7545'))
@@ -32,6 +33,8 @@ def send_transaction(sender_private_key, recipient_address, amount):
 
     # звіт
     with open('transactions.log', 'a') as f:
-        f.write(f"Відправник: {sender_address.address}\nОтримувач: {recipient_address}\nСума: {amount}\nГаз: {tx['gas']}\nХеш: {tx_hash.hex()}\n\n")
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        separator = '-' * 3
+        f.write(f"{timestamp}\n{separator}\nВідправник: {sender_address.address}\nОтримувач: {recipient_address}\nСума: {amount}\nГаз: {tx['gas']}\nХеш: {tx_hash.hex()}\n{separator}\n\n")
 
     return tx_hash.hex()
