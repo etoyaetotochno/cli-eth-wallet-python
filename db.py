@@ -3,7 +3,6 @@ import sqlite3
 # Файл бази даних
 DB_FILENAME = 'wallet.db'
 
-# Створення бази даних якщо не існує
 def create_table():
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
@@ -12,7 +11,6 @@ def create_table():
     conn.commit()
     conn.close()
 
-# Додання нового користувача в БД
 def add_user(username, password, address, private_key):
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
@@ -20,7 +18,6 @@ def add_user(username, password, address, private_key):
     conn.commit()
     conn.close()
 
-# Отримання інформації користувача
 def authenticate(username, password):
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
