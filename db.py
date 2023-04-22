@@ -19,6 +19,7 @@ def add_user(username, password, address, private_key):
     conn.close()
 
 def authenticate(username, password):
+	password = hashlib.sha256(password.encode()).hexdigest()
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
     c.execute("SELECT username, password FROM users WHERE username=?", (username,))
