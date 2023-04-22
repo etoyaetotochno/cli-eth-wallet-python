@@ -10,7 +10,6 @@ cli = click.Group()
 @click.option("--username", prompt=True, help="Ім'я користувача для нового облікового запису")
 @click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True, help="Пароль для нового облікового запису")
 def create_account(username, password):
-    password = hashlib.sha256(password.encode()).hexdigest()
     if db.user_unique(username):
         account = eth.create_account()
         db.add_user(username, password, account["address"], account["private_key"])
@@ -28,7 +27,6 @@ def create_account(username, password):
 @click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True, help="Пароль для нового облікового запису")
 @click.option("--key", prompt=True, help="Приватний ключ існуючого рахунку в мережі")
 def load_account(username, password, key):
-    password = hashlib.sha256(password.encode()).hexdigest()
     account = eth.load_account(key)
     if db.user_unique(username):
         db.add_user(username, password, account["address"], account["private_key"])
@@ -51,7 +49,6 @@ def load_account(username, password, key):
 @click.option("--to_address", prompt=True, help="Адреса призначення")
 @click.option("--value", prompt=True, type=float, help="Сума (ефіру) транзакції")
 def send_transaction(username, password, sender_address, to_address, value):
-    password = hashlib.sha256(password.encode()).hexdigest()
     user = db.authenticate(username, password)
     if not user:
         click.echo("Неправильне ім'я або пароль")
@@ -85,7 +82,6 @@ def send_transaction(username, password, sender_address, to_address, value):
 @click.option("--username", prompt=True, help="Ім'я користувача існуючого облікового запису")
 @click.option("--password", prompt=True, hide_input=True, help="Пароль існуючого облікового запису")
 def view_balance(username, password):
-    password = hashlib.sha256(password.encode()).hexdigest()
     user = db.authenticate(username, password)
     if not user:
         click.echo("Неправильне ім'я або пароль")
