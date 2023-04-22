@@ -29,4 +29,9 @@ def send_transaction(sender_private_key, recipient_address, amount):
     }
     signed_tx = web3.eth.account.sign_transaction(tx, sender_private_key)
     tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+
+    # звіт
+    with open('transactions.log', 'a') as f:
+        f.write(f"Відправник: {sender_address.address}\nОтримувач: {recipient_address}\nСума: {amount}\nГаз: {tx['gas']}\nХеш: {tx_hash.hex()}\n\n")
+
     return tx_hash.hex()
