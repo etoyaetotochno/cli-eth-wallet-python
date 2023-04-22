@@ -19,7 +19,7 @@ def create_account(username, password):
         if click.confirm("Обліковий запис {} існує.\n Підтвердити створення нової адреси?".format(username)):
             account = eth.create_account()
             db.add_user(username, password, account["address"], account["private_key"])
-            click.echo("Рахунок додано до користувача: {}\nАдреса рахунку: {}".format(username, account["address"]))
+            click.echo("Рахунок додано до користувача: {}\nАдреса рахунку: {}\nПриватний ключ: {}".format(username, account["address"], account["private_key"]))
         else:
             return
 
