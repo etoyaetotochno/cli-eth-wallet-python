@@ -54,7 +54,7 @@ def send_transaction(username, password, sender_address, to_address, value):
         click.echo("Неправильне ім'я або пароль")
         return
     if sender_address:
-        private_key = db.get_private_key(sender_address)[0][0]
+        private_key = db.get_private_key(username, password, selected_address)
         tx_hash = eth.send_transaction(private_key, to_address, value)
     else:
         addresses = [row[0] for row in db.user_addresses(username)]
@@ -74,7 +74,7 @@ def send_transaction(username, password, sender_address, to_address, value):
             except ValueError as e:
                 click.echo(str(e))
 
-        private_key = db.get_private_key(selected_address)[0][0]
+        private_key = db.get_private_key(username, password, selected_address)
         tx_hash = eth.send_transaction(private_key, to_address, value)
     click.echo("Транзакцію відправлено: {}\n Рахунок: {}\n Сума: {}".format(tx_hash, selected_address, value))
 
