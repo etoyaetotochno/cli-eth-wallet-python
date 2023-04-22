@@ -1,4 +1,6 @@
 import sqlite3
+import crypto
+import hashlib
 
 # Файл бази даних
 DB_FILENAME = 'wallet.db'
@@ -12,6 +14,8 @@ def create_table():
     conn.close()
 
 def add_user(username, password, address, private_key):
+    private_key = crypto.encrypt_private_key(private_key, password)
+    password = hashlib.sha256(password.encode()).hexdigest()
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
     c.execute("INSERT INTO users VALUES (?, ?, ?, ?)", (username, password, address, private_key))
@@ -56,10 +60,11 @@ def user_addresses(username):
     conn.close()
     return result
 
-def get_private_key(address):
+def get_private_key(username, password, address):
     conn = sqlite3.connect(DB_FILENAME)
     c = conn.cursor()
-    c.execute("SELECT private_key FROM users WHERE address = ?", (address,))
-    result = c.fetchall()
+    c.execute("SELECT private_key FROM users WHERE address = ? AND username = ?", (address, username,))
+    result = c.fetchone()
     conn.close()
-    return result
+    private_key = crypto.decrypt_private_key(result[0], password)
+    return private_key
